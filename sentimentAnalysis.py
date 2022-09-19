@@ -1,1 +1,1 @@
-print("hello world")
+print("wat it do?")
