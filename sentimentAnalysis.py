@@ -2,6 +2,9 @@ from cgitb import text
 from http import client
 import pandas as pd
 import tweepy
+import re
+from cleaning import clean
+
 
 token = pd.read_csv("twitter_code.csv")
 
@@ -18,7 +21,17 @@ api = tweepy.API(auth)
 
 client = tweepy.Client(bearer_token=token['Bearer'][0])
 
-tweets = client.search_recent_tweets('banana', max_results=50)
+tweets = client.search_recent_tweets('india', max_results=20)
+#print(tweets)
 
-for tweet in tweets:
-    print(tweet[1])
+f = list()
+
+for tweets in tweets.data:
+   clean_text = re.sub("[^-9A-Za-z ]", "" , tweets.text)
+   f.append(clean_text.lower())
+
+print(clean(f))
+
+
+#for tweet in tweets:
+#    print()
